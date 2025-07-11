@@ -26,8 +26,8 @@ uint8_t targetSat = 0;
 
 
 // データ受信時のコールバック関数
-void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
-    if (len == sizeof(DataPacket)) {
+void OnDataRecv(const esp_now_recv_info_t *recvInfo, const uint8_t *incomingData, int len) {
+     if (len == sizeof(DataPacket)) {
         memcpy(&data, incomingData, sizeof(DataPacket));
 
         targetSat = data.sat;
@@ -64,6 +64,8 @@ void setup() {
     FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
     FastLED.clear();
     FastLED.show();
+
+    Serial.println("started");
 }
 
 uint8_t hue = 0;
